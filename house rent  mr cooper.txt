@@ -1,0 +1,143 @@
+details=[["user id","name","age","address","phone no."]]
+houselocations=[["Location","House id","Address","No.of rooms","Rent"],
+                ["Tambaram",1111,"GST main road","2 BHK",6000],
+                ["Chromprt",2222,"Near saravanastore","1 BHK",5000],
+                ["Guindy",3333,"Near metro station","2 BHK",4000],
+                ["T.Nagar",4444,"Ranganathan street","1 BHK",3000]]
+location=["Tambaram","Chrompet","Guindy","T.Nagar"]
+bookedlocations=[]
+
+class admin:
+    def removelocation(self,loc):
+        location.remove(loc)
+        for i in range(1,len(houselocations)-1):
+            if houselocations[i][0]==loc:
+                houselocations.pop(i)
+                break
+        
+    def showlocation(self):
+        print(*location)
+    
+    def tenantdetails(self):
+        for i in details:
+            print(i)
+            
+    def housedetails(self):
+        for j in houselocations:
+            print(j)
+            
+    def addhouse(self):
+        tadd=[]
+        print("Enter location ",end=" ")
+        loc=input().strip()
+        tadd.append(loc)
+        location.append(loc)
+        print("Enter House id ",end=" ")
+        tadd.append(int(input()))
+        print("Enter Address ",end=" ")
+        tadd.append(input().strip())
+        print("Enter No.of rooms ",end=" ")
+        tadd.append(input().strip())
+        print("Enter Rent",end=" ")
+        tadd.append(int(input()))
+        houselocations.append(tadd)
+    
+    def showbookedlocations(self):
+        for i in bookedlocations:
+            print(i)
+
+class tenant:
+    def showlocation(self):
+        print(*location)
+
+    def housedetails(self):
+        for j in houselocations:
+            print(j)
+    
+    def bookhouse(self,loc,tntdet):
+        for i in range(1,len(houselocations)):
+            if houselocations[i][0]==loc:
+                print("YOUR HOUSE WAS BOOKED SUCCESSFULLY")
+                bookedlocations.append([houselocations[i],"by",tntdet])
+                houselocations.pop(i)
+                location.remove(loc)
+                break
+        
+        
+if __name__=="__main__":
+    while(1):
+        print("\nlogin as admin or tenant")
+        print("Enter 1 for admin and 2 for tenant")
+        inp=int(input())
+        if inp==1:
+            print("provide admin id:")
+            admin_id="admin@123"
+            print("provide password:")
+            password="admin22"
+            if admin_id=="admin@123" and password=="admin22":
+                print("Loggedin as Admin successfully!!")
+                ad1=admin()
+                print("Admin operations:\n")
+                print("Enter 1 for Add house details")
+                print("Enter 2 for Remove location")
+                print("Enter 3 for show locations")
+                print("Enter 4 for tenant details")
+                print("Enter 5 for house details")
+                print("Enter 6 for display booked locations")
+                oper=int(input())
+                if oper==1:
+                    ad1.addhouse()
+                    print("Location added successfully")
+                elif oper==2:
+                    loc=input("Enter location to remove ")
+                    ad1.removelocation(loc)
+                    print("Location removed successfully")
+                elif oper==3:
+                    ad1.showlocation()
+                elif oper==4:
+                    ad1.tenantdetails()
+                elif oper==5:
+                    ad1.housedetails()
+                elif oper==6:
+                    ad1.showbookedlocations()
+                else:
+                    print("Invalid input")
+            else:
+                print("Incorrect admin_id or password")
+        elif inp==2:
+            tntdet=[]
+            print("Enter your user id: ",end=" ")
+            userid=input().strip()
+            tntdet.append(userid)
+            print("Enter your name: ",end=" ")
+            name=input().strip()
+            tntdet.append(name)
+            print("Enter your age: ",end=" ")
+            age=int(input())
+            tntdet.append(age)
+            print("Enter your address: ",end=" ")
+            address=input().strip()
+            tntdet.append(address)
+            print("Enter your phone number: ",end=" ")
+            phone=int(input())
+            tntdet.append(phone)
+            if tntdet not in details:
+                details.append(tntdet)
+            print("Loggedin as tenant successfully!!")
+            tnt1=tenant()
+            print("Enter 1 for show locations")
+            print("Enter 2 for house details")
+            print("Enter 3 for house booking")
+            uin=int(input())
+            if uin==1:
+                tnt1.showlocation()
+            elif uin==2:
+                tnt1.housedetails()
+            elif uin==3:
+                print("Enter the location to book your house")
+                loc=input().strip()
+                tnt1.bookhouse(loc,tntdet)
+            else:
+                print("Invalid input")
+        else:
+            print("invalid input")
